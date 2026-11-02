@@ -1,0 +1,15 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color gym_background_dark
+color gym_primary_neon
+color gym_surface_dark
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Theme.GymTracker
+xml backup_rules
+xml data_extraction_rules

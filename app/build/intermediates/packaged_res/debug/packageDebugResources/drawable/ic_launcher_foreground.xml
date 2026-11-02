@@ -1,0 +1,26 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Dumbbell Bar -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M38,51h32v6h-32z" />
+    <!-- Left Inner Weight Plate -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M34,42h4v24h-4z" />
+    <!-- Left Outer Weight Plate -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M27,46h5v16h-5z" />
+    <!-- Right Inner Weight Plate -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M70,42h4v24h-4z" />
+    <!-- Right Outer Weight Plate -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M76,46h5v16h-5z" />
+</vector>

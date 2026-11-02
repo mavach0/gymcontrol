@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-debug-53:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-main-55:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-debug-53:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-main-55:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "com.gymtracker.app-debug-53:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.gymtracker.app-main-55:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-debug-53:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-main-55:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-debug-53:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-main-55:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-debug-53:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-main-55:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-debug-53:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\maxva\\.gradle\\daemon\\8.9\\com.gymtracker.app-main-55:\\drawable\\ic_launcher_foreground.xml"
+    }
+]
