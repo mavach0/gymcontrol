@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
         try {
             enableEdgeToEdge()
         } catch (e: Exception) {
-            Log.w("GymTracker", "EdgeToEdge warning: ${e.message}")
+            Log.w("GymControl", "EdgeToEdge warning: ${e.message}")
         }
 
         try {
@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         } catch (t: Throwable) {
-            Log.e("GYM_CRASH", "Error al iniciar GymTracker", t)
+            Log.e("GYM_CRASH", "Error al iniciar GymControl", t)
             setContent {
                 GymTrackerTheme {
                     Box(

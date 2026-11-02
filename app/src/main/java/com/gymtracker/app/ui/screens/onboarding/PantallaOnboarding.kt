@@ -257,7 +257,7 @@ private fun PasoDatosFisicos(
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Bienvenido a GymTracker",
+            text = "Bienvenido a GymControl",
             color = TextPrimary,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,

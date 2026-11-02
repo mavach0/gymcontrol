@@ -1,4 +1,4 @@
-# GymTracker 🏋️‍♂️
+# GymControl 🏋️‍♂️
 
 [![Descargar APK](https://img.shields.io/badge/Descargar-APK%20(Pruebas)-3B82F6?style=for-the-badge&logo=android&logoColor=white)](https://github.com/mavach0/gymcontrol/releases)
 
@@ -9,10 +9,10 @@ Aplicación Android moderna para seguimiento de entrenamientos en el gimnasio, d
 ## 📲 ¿Cómo descargar e instalar la app para probarla?
 
 1. Desde tu teléfono Android, entra al enlace de lanzamientos:  
-   👉 **[Descargar la última versión de GymTracker](https://github.com/mavach0/gymcontrol/releases)**
-2. En la sección **Assets**, pulsa sobre `GymTracker.apk` para descargarlo.
+   👉 **[Descargar la última versión de GymControl](https://github.com/mavach0/gymcontrol/releases)**
+2. En la sección **Assets**, pulsa sobre `GymControl.apk` para descargarlo.
 3. Abre el archivo descargado en tu teléfono. Si Android te solicita permisos, activa **"Permitir desde esta fuente"** (Instalación de orígenes desconocidos).
-4. ¡Listo! Abre **GymTracker** y comienza a probar.
+4. ¡Listo! Abre **GymControl** y comienza a probar.
 
 ---
 
