@@ -1,0 +1,64 @@
+name: Build & Release Android APK
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Build Debug APK
+        run: gradle assembleDebug --stacktrace
+
+      - name: Rename APK for testers
+        run: |
+          mkdir -p release-apk
+          cp app/build/outputs/apk/debug/*.apk release-apk/GymTracker.apk
+
+      - name: Upload APK as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GymTracker-debug-apk
+          path: release-apk/GymTracker.apk
+
+      - name: Create or Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main'
+        with:
+          tag_name: latest
+          name: "GymTracker - Última versión de prueba"
+          body: |
+            ### 🏋️‍♂️ GymTracker APK para pruebas
+            Descarga el archivo **GymTracker.apk** en tu teléfono Android para probar la última versión.
+            
+            - **Fecha de compilación:** ${{ github.event.head_commit.timestamp || github.event.created_at }}
+            - **Commit:** ${{ github.sha }}
+          draft: false
+          prerelease: false
+          files: release-apk/GymTracker.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
