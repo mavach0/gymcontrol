@@ -6,9 +6,12 @@
                 {
                     "source": "C:\\Users\\maxva\\gymcontrol\\app\\src\\main\\res\\values\\themes.xml",
                     "from": {
-                        "startLines": "-1",
-                        "startColumns": "-1",
-                        "startOffsets": "-1"
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "383"
                     },
                     "to": {
                         "startLines": "231",
@@ -99,9 +102,11 @@
                 {
                     "source": "C:\\Users\\maxva\\gymcontrol\\app\\src\\main\\res\\values\\strings.xml",
                     "from": {
-                        "startLines": "-1",
-                        "startColumns": "-1",
-                        "startOffsets": "-1"
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "16",
+                        "endColumns": "47",
+                        "endOffsets": "59"
                     },
                     "to": {
                         "startLines": "107",
@@ -144,11 +149,9 @@
                 {
                     "source": "C:\\Users\\maxva\\gymcontrol\\app\\src\\main\\res\\values\\colors.xml",
                     "from": {
-                        "startLines": "-1,4,5,6,-1",
-                        "startColumns": "-1,4,4,4,-1",
-                        "startOffsets": "-1,139,195,248,-1",
-                        "endColumns": "-1,55,52,52,-1",
-                        "endOffsets": "-1,190,243,296,-1"
+                        "startLines": "-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1"
                     },
                     "to": {
                         "startLines": "5,8,9,10,13",

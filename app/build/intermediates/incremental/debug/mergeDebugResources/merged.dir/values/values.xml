@@ -105,7 +105,7 @@
     <integer name="m3c_window_layout_in_display_cutout_mode">1</integer>
     <integer name="status_bar_notification_info_maxnum">999</integer>
     <string name="androidx_startup" translatable="false">androidx.startup</string>
-    <string name="app_name">GymTracker</string>
+    <string name="app_name">GymControl</string>
     <string name="call_notification_answer_action">Answer</string>
     <string name="call_notification_answer_video_action">Video</string>
     <string name="call_notification_decline_action">Decline</string>
@@ -229,7 +229,7 @@
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
     <style name="TextAppearance.Compat.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title"/>
-    <style name="Theme.GymTracker" parent="android:Theme.Material.NoActionBar">
+    <style name="Theme.GymControl" parent="android:Theme.Material.NoActionBar">
         <item name="android:statusBarColor">@color/gym_background_dark</item>
         <item name="android:navigationBarColor">@color/gym_background_dark</item>
         <item name="android:windowBackground">@color/gym_background_dark</item>

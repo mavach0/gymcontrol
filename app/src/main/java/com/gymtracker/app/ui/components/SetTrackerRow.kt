@@ -16,10 +16,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,7 +49,7 @@ import com.gymtracker.app.ui.theme.TextTertiary
 fun SetTrackerRow(
     set: WorkoutSet,
     onWeightChange: (Double) -> Unit,
-    onRepsChange: (Int) -> Unit,
+    onRepsDelta: (Int) -> Unit,
     onToggleComplete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -57,122 +64,58 @@ fun SetTrackerRow(
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(rowBackground)
-            .padding(horizontal = 12.dp, vertical = 8.dp),
+            .padding(horizontal = 10.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Set number badge
+        // Número de serie
         Box(
             modifier = Modifier
-                .size(28.dp)
+                .size(26.dp)
                 .background(GymSurfaceVariant, CircleShape),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = "${set.setNumber}",
                 color = TextPrimary,
-                fontSize = 13.sp,
+                fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
         }
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(6.dp))
 
-        // Weight Input Box (kg)
-        Box(
-            modifier = Modifier
-                .width(76.dp)
-                .height(38.dp)
-                .clip(RoundedCornerShape(6.dp))
-                .background(GymBackground)
-                .padding(horizontal = 8.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            BasicTextField(
-                value = if (set.weightKg > 0.0) set.weightKg.toString() else "",
-                onValueChange = { input ->
-                    val weight = input.toDoubleOrNull() ?: 0.0
-                    onWeightChange(weight)
-                },
-                textStyle = TextStyle(
-                    color = TextPrimary,
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.Center
-                ),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                cursorBrush = SolidColor(GymNeonGreen),
-                singleLine = true,
-                decorationBox = { innerTextField ->
-                    if (set.weightKg == 0.0) {
-                        Text(
-                            text = "0 kg",
-                            color = TextTertiary,
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                    innerTextField()
-                }
-            )
-        }
+        // Peso (kg)
+        WeightField(
+            setId = set.id,
+            weightKg = set.weightKg,
+            onWeightChange = onWeightChange,
+            modifier = Modifier.width(66.dp)
+        )
 
         Text(
             text = "kg",
             color = TextTertiary,
-            fontSize = 12.sp
+            fontSize = 11.sp
+        )
+
+        Spacer(modifier = Modifier.width(6.dp))
+
+        // Repeticiones: contador libre con mínimo 1
+        RepsStepper(
+            reps = set.reps,
+            onRepsDelta = onRepsDelta
         )
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        // Reps Input Box
-        Box(
-            modifier = Modifier
-                .width(64.dp)
-                .height(38.dp)
-                .clip(RoundedCornerShape(6.dp))
-                .background(GymBackground)
-                .padding(horizontal = 8.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            BasicTextField(
-                value = if (set.reps > 0) set.reps.toString() else "",
-                onValueChange = { input ->
-                    val reps = input.toIntOrNull() ?: 0
-                    onRepsChange(reps)
-                },
-                textStyle = TextStyle(
-                    color = TextPrimary,
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.Center
-                ),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                cursorBrush = SolidColor(GymNeonGreen),
-                singleLine = true,
-                decorationBox = { innerTextField ->
-                    if (set.reps == 0) {
-                        Text(
-                            text = "reps",
-                            color = TextTertiary,
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                    innerTextField()
-                }
-            )
-        }
-
-        Spacer(modifier = Modifier.width(12.dp))
-
-        // Complete Checkbox Button
+        // Marcar serie como completada
         val buttonBg = if (set.isCompleted) GymNeonGreen else GymSurfaceVariant
         val iconColor = if (set.isCompleted) TextPrimary else TextSecondary
 
         Box(
             modifier = Modifier
-                .size(36.dp)
+                .size(34.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .background(buttonBg)
                 .clickable { onToggleComplete() },
@@ -182,8 +125,136 @@ fun SetTrackerRow(
                 imageVector = Icons.Default.Check,
                 contentDescription = "Marcar como completada",
                 tint = iconColor,
-                modifier = Modifier.size(20.dp)
+                modifier = Modifier.size(19.dp)
             )
         }
     }
 }
+
+@Composable
+private fun RepsStepper(
+    reps: Int,
+    onRepsDelta: (Int) -> Unit
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
+        StepperButton(
+            icon = Icons.Default.Remove,
+            contentDescription = "Quitar repetición",
+            enabled = reps > MIN_REPS,
+            onClick = { onRepsDelta(-1) }
+        )
+
+        Text(
+            text = "$reps",
+            color = TextPrimary,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.width(28.dp)
+        )
+
+        StepperButton(
+            icon = Icons.Default.Add,
+            contentDescription = "Añadir repetición",
+            enabled = reps < MAX_REPS,
+            onClick = { onRepsDelta(1) }
+        )
+    }
+}
+
+@Composable
+private fun StepperButton(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    contentDescription: String,
+    enabled: Boolean,
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .size(26.dp)
+            .clip(CircleShape)
+            .background(GymSurfaceVariant.copy(alpha = if (enabled) 1f else 0.45f))
+            .clickable(enabled = enabled, onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = contentDescription,
+            tint = if (enabled) TextPrimary else TextTertiary.copy(alpha = 0.5f),
+            modifier = Modifier.size(15.dp)
+        )
+    }
+}
+
+@Composable
+private fun WeightField(
+    setId: String,
+    weightKg: Double,
+    onWeightChange: (Double) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var text by remember(setId) { mutableStateOf(formatWeight(weightKg)) }
+
+    LaunchedEffect(weightKg) {
+        val parsed = text.replace(',', '.').toDoubleOrNull() ?: 0.0
+        if (parsed != weightKg) {
+            text = formatWeight(weightKg)
+        }
+    }
+
+    Box(
+        modifier = modifier
+            .height(36.dp)
+            .clip(RoundedCornerShape(6.dp))
+            .background(GymBackground)
+            .padding(horizontal = 6.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        BasicTextField(
+            value = text,
+            onValueChange = { input ->
+                val normalized = input.replace(',', '.')
+                if (normalized.isEmpty() || WEIGHT_REGEX.matches(normalized)) {
+                    text = normalized
+                    onWeightChange(normalized.toDoubleOrNull() ?: 0.0)
+                }
+            },
+            textStyle = TextStyle(
+                color = TextPrimary,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center
+            ),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+            cursorBrush = SolidColor(GymNeonGreen),
+            singleLine = true,
+            decorationBox = { innerTextField ->
+                if (text.isEmpty()) {
+                    Text(
+                        text = "0",
+                        color = TextTertiary,
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Center
+                    )
+                }
+                innerTextField()
+            }
+        )
+    }
+}
+
+private fun formatWeight(weightKg: Double): String {
+    if (weightKg <= 0.0) return ""
+    return if (weightKg % 1.0 == 0.0) {
+        weightKg.toInt().toString()
+    } else {
+        weightKg.toString()
+    }
+}
+
+private val WEIGHT_REGEX = Regex("^\\d{0,3}(\\.\\d{0,2})?$")
+private const val MIN_REPS = 1
+private const val MAX_REPS = 999

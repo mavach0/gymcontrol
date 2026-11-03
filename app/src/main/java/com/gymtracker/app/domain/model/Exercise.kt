@@ -5,5 +5,7 @@ data class Exercise(
     val name: String,
     val muscleGroup: MuscleGroup,
     val equipment: String = "Barra",
-    val defaultRestSeconds: Int = 90
+    val defaultRestSeconds: Int = 90,
+    val description: String = "",
+    val tips: List<String> = emptyList()
 )

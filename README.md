@@ -20,12 +20,15 @@ Aplicación Android moderna para seguimiento de entrenamientos en el gimnasio, d
 
 - **Diseño Dark Mode Minimalista**: Paleta oscura sobria (*Charcoal & Graphite*) con acentos en azul cobalto (*Cobalt Blue*).
 - **Onboarding Personalizado**: Configuración inicial de nombre, estatura, peso, objetivo fitness (definir, fuerza, masa muscular) y lugar de entreno (gym o casa).
-- **Rutina Predefinida Inteligente**: Recomendación de plan adaptado (Torso/Pierna, 5x5, Hipertrofia con mancuernas, Calistenia, etc.).
-- **Registro Activo de Series**: Control de pesos (kg), repeticiones y selector rápido de finalización de serie.
+- **Rutina Predefinida Inteligente**: Recomendación de plan adaptado (Torso/Pierna, 5x5, Hipertrofia con mancuernas, Calistenia, etc.) que se convierte automáticamente en un plan personalizado activo.
+- **Planes de Entrenamiento Personalizados**: Crea planes con nombre propio, agrupa los ejercicios que quieras, actívalos y edítalos en cualquier momento.
+- **Detalle de Ejercicio**: Ficha con descripción, consejos técnicos, descanso recomendado y acceso directo para añadir el ejercicio al plan activo o al entrenamiento en curso.
+- **Registro Activo de Series**: Control de pesos (kg) y repeticiones con contadores libres (mínimo 1 serie y 1 repetición), añadir o quitar series y ejercicios.
 - **Temporizador de Descanso Integrado**: Cuenta regresiva automática al completar una serie.
 - **Dashboard de Progreso Real**: Racha y volumen acumulado calculados según tus entrenamientos reales (sin datos falsos).
-- **Catálogo de Ejercicios**: Filtrado instantáneo por grupos musculares y barra de búsqueda en tiempo real.
+- **Catálogo de Ejercicios**: Filtrado instantáneo por grupos musculares y búsqueda por nombre, equipamiento o grupo muscular.
 - **Historial Completo**: Registro detallado de sesiones anteriores, volumen total y series completadas.
+- **Persistencia Local Robusta**: Todo el estado (entrenamientos, sesión activa, planes y plan activo) se guarda en un único JSON escrito de forma atómica, con recuperación automática ante ficheros corruptos.
 
 ---
 
@@ -52,16 +55,25 @@ gymcontrol/
 │   ├── src/
 │   │   ├── main/
 │   │   │   ├── java/com/gymtracker/app/
+│   │   │   │   ├── core/
+│   │   │   │   │   └── di/            # Contenedor de dependencias y fábrica de ViewModels
 │   │   │   │   ├── data/
-│   │   │   │   │   ├── local/         # Preferencias locales de usuario (UserPreferences)
-│   │   │   │   │   └── repository/    # Repositorio (InMemoryWorkoutRepository)
+│   │   │   │   │   ├── catalog/       # Catálogo de ejercicios (ExerciseCatalog)
+│   │   │   │   │   ├── local/         # Preferencias y persistencia JSON atómica (WorkoutStateStore)
+│   │   │   │   │   └── repository/    # Implementación del repositorio (LocalWorkoutRepository)
 │   │   │   │   ├── domain/
-│   │   │   │   │   ├── model/         # Modelos de dominio (Exercise, FitnessPlan, WorkoutSession, etc.)
-│   │   │   │   │   └── repository/    # Interfaces de repositorio (WorkoutRepository)
+│   │   │   │   │   ├── model/         # Modelos de dominio (Exercise, CustomPlan, WorkoutSession, etc.)
+│   │   │   │   │   └── repository/    # Contratos de repositorio (WorkoutRepository)
+│   │   │   │   ├── features/
+│   │   │   │   │   ├── exercises/     # Catálogo y detalle de ejercicio
+│   │   │   │   │   ├── history/       # Historial de sesiones
+│   │   │   │   │   ├── home/          # Dashboard de inicio
+│   │   │   │   │   ├── onboarding/    # Configuración inicial
+│   │   │   │   │   ├── plans/         # Planes personalizados y su detalle
+│   │   │   │   │   └── workout/       # Entrenamiento activo
 │   │   │   │   ├── ui/
-│   │   │   │   │   ├── components/    # Componentes reutilizables (StatCard, WorkoutCard, SetTrackerRow, etc.)
+│   │   │   │   │   ├── components/    # Componentes reutilizables (SetTrackerRow, ExerciseListItem, etc.)
 │   │   │   │   │   ├── navigation/    # Rutas y Bottom Navigation (NavGraph, Screen)
-│   │   │   │   │   ├── screens/       # Pantallas (Home, ActiveWorkout, Exercises, History, PantallaOnboarding)
 │   │   │   │   │   └── theme/         # Paleta Dark Mode, Tipografía, Formas y Tema M3
 │   │   │   │   ├── GymTrackerApplication.kt
 │   │   │   │   └── MainActivity.kt

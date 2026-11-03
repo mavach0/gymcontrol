@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.gymtracker.app.ui.navigation.ScreenTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-03T22:43:21" hostname="ASUSU_MAX" time="0.101">
+  <properties/>
+  <testcase name="bottom nav items are initialized and not null" classname="com.gymtracker.app.ui.navigation.ScreenTest" time="0.101"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

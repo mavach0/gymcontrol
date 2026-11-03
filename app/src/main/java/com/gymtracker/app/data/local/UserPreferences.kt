@@ -23,7 +23,10 @@ class UserPreferences(context: Context) {
 
     fun setOnboardingCompleted(completed: Boolean) {
         runCatching {
-            prefs.edit().putBoolean(KEY_ONBOARDING_COMPLETED, completed).apply()
+            // commit() garantiza que el dato esté en disco antes de navegar.
+            // Es una escritura minúscula y evita perder el onboarding si el
+            // proceso se cierra justo después de completarlo.
+            prefs.edit().putBoolean(KEY_ONBOARDING_COMPLETED, completed).commit()
         }
     }
 
@@ -103,7 +106,7 @@ class UserPreferences(context: Context) {
                 editor.remove(KEY_PLAN_TITLE)
             }
 
-            editor.apply()
+            editor.commit()
         }
     }
 
